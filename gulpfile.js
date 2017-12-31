@@ -18,6 +18,7 @@ gulp.task('browser-sync', function() {
             baseDir: "./build"
         }
     });
+    gulp.watch("build").on('change', browserSync.reload);
 });
 
 gulp.task('pug', function() {
@@ -27,7 +28,7 @@ gulp.task('pug', function() {
 			pretty: false,
 		}))
 		.pipe(gulp.dest('build'))
-		.on('end', browserSync.reload);
+		.pipe(browserSync.stream());
 });
 
 gulp.task('sass', function() {
@@ -42,9 +43,7 @@ gulp.task('sass', function() {
 		.pipe(plumber())
 		.pipe(rename({suffix: '.min'}))
 		.pipe(gulp.dest('build/css'))
-		.pipe(browserSync.reload({
-			stream: true
-		}));
+		.pipe(browserSync.stream());
 });
 
 gulp.task('js', function() {
@@ -60,7 +59,7 @@ gulp.task('js', function() {
 	  .pipe(plumber())
 	  .pipe(rename({suffix: '.min'}))
 	  .pipe(gulp.dest('build/js'))
-	  .on('end', browserSync.reload);
+	  .pipe(browserSync.stream());
   });
 
   gulp.task('img', function() {
@@ -76,7 +75,7 @@ gulp.task('js', function() {
 	  )
 	  .pipe(rename({suffix: '.min'}))
 	  .pipe(gulp.dest('build/images'))
-	  .on('end', browserSync.reload);
+	  .pipe(browserSync.stream());
   });
 
 gulp.task('watch', function() {
