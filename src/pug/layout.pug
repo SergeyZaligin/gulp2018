@@ -1,0 +1,21 @@
+doctype html
+html(lang='ru')
+  head
+    title= title
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    link(rel='stylesheet', href='css/main.min.css')
+  body
+    .wrapper
+      header.header 
+        .container header
+      nav.main-navigation.container(role='navigation')
+        - var linksList = {home: "/", about: "/about", admin: "/admin/controll"};
+          each val, index in linksList
+            a.main-navigation__link(href=val)=index
+      main#main(role="main")
+        .container
+          block content
+      footer.footer
+        .container footer
